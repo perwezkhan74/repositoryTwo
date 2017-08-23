@@ -124,8 +124,7 @@
         <module>gdp-common</module>
 		<module>gdp-app-domain</module>
         <module>gdp-dataaccess-api</module>
-		 <module>gdp-app-api</module>
-		  <module>gdp-spm-api</module>
+		 <module>gdp-app-api</module>		 
 		   <module>gdp-batch</module>
 		    <module>gdp-b2c-app-api</module>
 			 <module>gdp-cmg-email-client</module>
