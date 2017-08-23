@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example</groupId>
+    <artifactId>sample-maven-structure</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+
+
+    <properties>
+        <jacoco.version>0.7.9</jacoco.version>
+      <!--  <sonar.modules>module1,module2,module3</sonar.modules>
+        <module1.sonar.projectName>gdp-dataaccess-api</module1.sonar.projectName>
+        <module2.sonar.projectName>gdp-app-domain</module2.sonar.projectName>
+        <module3.sonar.projectName>gdp-app-api</module3.sonar.projectName>
+        <module1.sonar.projectBaseDir>gdp-dataaccess-api</module1.sonar.projectBaseDir>
+        <module2.sonar.projectBaseDir>gdp-app-domain</module2.sonar.projectBaseDir>
+        <module3.sonar.projectBaseDir>gdp-app-api</module3.sonar.projectBaseDir>-->
+        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+        <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
+
+
+    </properties>
+
+    <build>
+        <defaultGoal>package</defaultGoal>
+        <plugins>
+         <!--   <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    &lt;!&ndash; Copy the ant tasks jar. Needed for ts.jacoco.report-ant . &ndash;&gt;
+                    <execution>
+                        <id>jacoco-dependency-ant</id>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <phase>process-test-resources</phase>
+                        <inherited>false</inherited>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.jacoco</groupId>
+                                    <artifactId>org.jacoco.ant</artifactId>
+                                    <version>${jacoco.version}</version>
+                                </artifactItem>
+                            </artifactItems>
+                            <stripVersion>true</stripVersion>
+                            <outputDirectory>${basedir}/target/jacoco-jars</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>-->
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <taskdef name="report" classname="org.jacoco.ant.ReportTask">
+                                    <classpath path="${basedir}/target/jacoco-jars/org.jacoco.ant.jar" />
+                                </taskdef>
+
+                                &lt;!&ndash; Execute an ant task within maven &ndash;&gt;
+                                <echo message="Hello World from pom.xml"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.18.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                            <goal>report-aggregate</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-unit-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                            <goal>report-aggregate</goal>
+                        </goals>
+
+                    </execution>
+                </executions>
+                <configuration>
+                    <append>true</append>
+                    <systemPropertyVariables>
+                        <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+    <modules>
+        <module>parent</module>
+        <module>gdp-common</module>
+		<module>gdp-app-domain</module>
+        <module>gdp-dataaccess-api</module>
+		 <module>gdp-app-api</module>
+		  <module>gdp-spm-api</module>
+		   <module>gdp-batch</module>
+		    <module>gdp-b2c-app-api</module>
+			 <module>gdp-cmg-email-client</module>
+    </modules>
+</project>
